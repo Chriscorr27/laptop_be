@@ -7,6 +7,7 @@ import re
 from datetime import datetime
 import  json,requests
 import ipware
+from django.contrib.gis.geoip2 import GeoIP2
 
 # Create your views here.
 @api_view(['GET'])
@@ -123,3 +124,14 @@ def get_ip(request):
         "lon":data.get("longitude")
     }
     return Response(result,status=200)
+
+def get_ip_self(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = "3.110.151.86"
+    geo_ip = GeoIP2()
+    geo_data = geo_ip.lat_lon(ip)
+    return Response({"ip":ip,"lat_lon":geo_data},status=200)

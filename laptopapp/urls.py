@@ -7,4 +7,5 @@ urlpatterns = [
     path('get_orders/', get_orders),
     path('create_orders/', create_orders),
     path('get_ip/', get_ip),
+    path('get_ip_self/', get_ip_self),
 ]
