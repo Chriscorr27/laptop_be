@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from ipware.utils import is_loopback_ip
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import *
@@ -135,4 +134,5 @@ def get_ip_self(request):
         ip = "3.110.151.86"
     geo_ip = GeoIP2()
     geo_data = geo_ip.lat_lon(ip)
-    return Response({"ip":ip,"lat_lon":geo_data},status=200)
+    city_info = geo_ip.city(ip)
+    return Response({"ip":ip,"lat_lon":geo_data,"city":city_info},status=200)
