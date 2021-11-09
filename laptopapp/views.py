@@ -125,6 +125,7 @@ def get_ip(request):
     }
     return Response(result,status=200)
 
+@api_view(["GET"])
 def get_ip_self(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 
